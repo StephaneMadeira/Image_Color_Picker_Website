@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Colour Palette Generator</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}"/>
+    <!-- FontAwesome -->
+    <script src="https://kit.fontawesome.com/e222184c19.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<header>
+
+    <script>
+
+function getVal(value) {
+
+  /* Copy the text inside the value of the button and alert */
+    navigator.clipboard
+      .writeText(value)
+      .then(() => {
+        alert(value);
+      })
+      .catch(() => {
+        alert("something went wrong");
+      });
+}
+
+
+    </script>
+
+</header>
+
+<div class="background-image">
+
+    <!-- Upload Section -->
+    <section class="upload">
+        <h1>Image Color Picker</h1>
+
+        <form method="POST" action="/generate" enctype="multipart/form-data">
+            <label class="custom-file-upload">
+                <input type="file" name="image" onchange="form.submit()"/> Upload Image
+            </label>
+        </form>
+    </section>
+
+    <!-- Result Section -->
+    <section class="result">
+        {% if image %}
+        <img class="uploaded-img" src="{{ url_for('static', filename='uploaded_image/' + image) }}">
+        {% endif %}
+
+        {% for color in colors %}
+        <button class='button-rgb' id="get-color-button" style="background-color:rgb{{ color[1] }};"
+                value="The RGB is: {{ color[1] }}" type="button" onclick="getVal(this.value)">Get RGB
+        </button>
+        {% endfor %}
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <ul class="copyright">
+            <li>Image Color Picker</li>
+            <li>Developed by: <i class="fab fa-github fa-2xs"></i>
+                <a href="https://github.com/StephaneMadeira" target="_blank" rel="noreferrer">Stephane Madeira</a>
+        </ul>
+    </footer>
+</div>
+</body>
+</html>
